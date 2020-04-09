@@ -20,12 +20,10 @@ public class Hello {
         out.close();
     }
     public static void main(String[] args) throws IOException{
-        System.out.println("Hello, world!");
         String inputPathname = "C:/file/RU-NVS.osm.bz2";
         String outputPathname = "C:/file/RU-NVS.osm";
         Options options = new Options();
-        options.addOption("s",  false, "Name of archive");
-        options.addOption("f", false, "Name of output file");
+        options.addOption("in",  false, "Hello world option");
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = null;
         try {
@@ -34,11 +32,8 @@ public class Hello {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp( "myappname", options );
         }
-        if (cmd.hasOption("s")) {
-            //inputPathname = cmd.getOptionValue("s");
-        }
-        if (cmd.hasOption("f")) {
-            //outputPathname = cmd.getOptionValue("f");
+        if (cmd.hasOption("in")) {
+            System.out.println("Hello world!");
         }
         input = new File(inputPathname);
         output = new File(outputPathname);

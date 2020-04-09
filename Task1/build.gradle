@@ -4,7 +4,9 @@ apply plugin: "application"
 /*plugins {
     id 'java'
 }*/
-
+run{
+    args '-in'
+}
 group 'ru.nsu.fit.ermakova'
 version '1.0-SNAPSHOT'
 
