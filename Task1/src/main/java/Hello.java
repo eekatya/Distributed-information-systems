@@ -20,8 +20,8 @@ public class Hello {
         out.close();
     }
     public static void main(String[] args) throws IOException{
-        String inputPathname = "C:/file/RU-NVS.osm.bz2";
-        String outputPathname = "C:/file/RU-NVS.osm";
+        String inputPathname = "RU-NVS.osm.bz2";
+        String outputPathname = "RU-NVS.osm";
         Options options = new Options();
         options.addOption("in",  false, "Hello world option");
         CommandLineParser parser = new DefaultParser();

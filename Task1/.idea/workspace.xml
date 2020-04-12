@@ -59,7 +59,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1585985227447" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Task2" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -70,7 +70,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Task1 [clean]">
+  <component name="RunManager" selected="Gradle.Task1 [run]">
     <configuration name="Hello" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Hello" />
       <method v="2">
@@ -142,9 +142,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Task1 [clean]" />
         <item itemvalue="Gradle.Task1 [run]" />
         <item itemvalue="Gradle.Task1 [build]" />
+        <item itemvalue="Gradle.Task1 [clean]" />
         <item itemvalue="Application.Hello" />
       </list>
     </recent_temporary>
@@ -171,30 +171,34 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1586413384183" />
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1586413964904">
+    <state x="549" y="170" key="FileChooserDialogImpl" timestamp="1586663393380">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586413964904" />
-    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1586413964904">
+    <state x="549" y="170" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586663393380" />
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1586663394470">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586413964904" />
-    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1586413964903">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586663394470" />
+    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1586663394470">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586413964903" />
-    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1586413964904">
+    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586663394470" />
+    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1586663394469">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586413964904" />
+    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586663394469" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1586663394470">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586663394470" />
     <state x="0" y="0" key="SettingsEditor" timestamp="1585986324285">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="0" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585986324285" />
-    <state x="477" y="240" key="com.intellij.ide.util.TipDialog" timestamp="1586412219103">
+    <state x="477" y="240" key="com.intellij.ide.util.TipDialog" timestamp="1586662765646">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="477" y="240" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1586412219102" />
+    <state x="477" y="240" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1586662765646" />
   </component>
   <component name="masterDetails">
     <states>
