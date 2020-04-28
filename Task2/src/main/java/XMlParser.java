@@ -15,7 +15,11 @@ import java.io.StringReader;
 import java.sql.SQLException;
 import java.util.*;
 import org.openstreetmap.osm._0.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class XMlParser {
+    private static Logger LOGGER = LoggerFactory.getLogger(XMlParser.class);
     private postgreDatabase database;
     XMlParser()
     {
@@ -65,10 +69,15 @@ public class XMlParser {
             }
            // if (count!=0)
               //  nodeDao.insertBatch(listNodes);
-            System.out.println("Insertion speed: " + nodeDao.getInsertTime() + " records per second");
+            LOGGER.info("Insertion speed: " + nodeDao.getInsertTime() + " records per second");
+           // nodeDao.delete(32521222);
+           // Node node1 = nodeDao.getById(32521222);
+           // System.out.println("Id: " + node1.getId() + " User: " + node1.getUser() + " Timestamp: " + node1.getTimestamp());
             if (database.getConnection()!=null)
             database.disconnectDatabase();
         } catch (FileNotFoundException | XMLStreamException | JAXBException  e) {
+            if (database.getConnection()!=null)
+                database.disconnectDatabase();
             e.printStackTrace();
         }
 

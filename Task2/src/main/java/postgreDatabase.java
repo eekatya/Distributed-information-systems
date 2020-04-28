@@ -1,8 +1,13 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 public class postgreDatabase {
+    private static Logger LOGGER = LoggerFactory.getLogger(postgreDatabase.class);
     public static final String DB_DRIVER_NAME = "org.postgresql.Driver";
     public static final String DB_USER_NAME = "postgres";
   //  public static final String DB_CONNECTION_URL = "jdbc:postgresql://localhost:5432/node_database" ;
@@ -15,11 +20,11 @@ public class postgreDatabase {
         try {
             Class.forName(DB_DRIVER_NAME);
             conn = DriverManager.getConnection(DB_CONNECTION_URL, DB_USER_NAME, DB_PASSWORD);
-            System.err.println("Connected to database successfully");
+            LOGGER.info("Connected to database successfully");
         } catch (Exception e) {
-            System.err.println("Exception in connection to database");
+            LOGGER.error("Exception in connection to database");
             e.printStackTrace();
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            LOGGER.error(e.getClass().getName() + ": " + e.getMessage());
             return;
         }
     }
@@ -27,11 +32,11 @@ public class postgreDatabase {
         try {
             conn.close();
             conn = null;
-            System.err.println("Disconnected from database successfully");
+            LOGGER.info("Disconnected from database successfully");
         } catch (Exception e) {
-            System.err.println("Exception in disconnection from database");
+            LOGGER.error("Exception in disconnection from database");
             e.printStackTrace();
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            LOGGER.error(e.getClass().getName() + ": " + e.getMessage());
             return;
         }
     }
@@ -40,7 +45,7 @@ public class postgreDatabase {
         String sql;
         Class.forName(DB_DRIVER_NAME);
         conn = DriverManager.getConnection(CONNECTION_URL, DB_USER_NAME, DB_PASSWORD);
-        System.err.println("Connected to postgreSQL successfully");
+        LOGGER.info("Connected to postgreSQL successfully");
         conn.setAutoCommit(true);
         stmt = conn.createStatement();
         sql = "DROP DATABASE IF EXISTS ___node_database";
@@ -48,7 +53,7 @@ public class postgreDatabase {
         stmt.close();
         conn.close();
         conn = null;
-        System.err.println("Drop database completed successfully");
+        LOGGER.info("Drop database completed successfully");
     }
 
     public void createDatabase() throws Exception {
@@ -56,7 +61,7 @@ public class postgreDatabase {
         String sql;
         Class.forName(DB_DRIVER_NAME);
         conn = DriverManager.getConnection(CONNECTION_URL, DB_USER_NAME, DB_PASSWORD);
-        System.err.println("Connected to postgreSQL successfully");
+        LOGGER.info("Connected to postgreSQL successfully");
         conn.setAutoCommit(true);
         stmt = conn.createStatement();
         sql = "CREATE DATABASE ___node_database";
@@ -64,20 +69,20 @@ public class postgreDatabase {
         stmt.close();
         conn.close();
         conn = null;
-        System.err.println("Create database completed successfully");
+        LOGGER.info("Create database completed successfully");
     }
     public void createAllTables() throws Exception {
         Statement stmt;
         String sql;
         Class.forName(DB_DRIVER_NAME);
         conn = DriverManager.getConnection(DB_CONNECTION_URL, DB_USER_NAME, DB_PASSWORD);
-        System.err.println("Connected to database successfully");
+        LOGGER.info("Connected to database successfully");
         conn.setAutoCommit(false);
         stmt = conn.createStatement();
         sql = "CREATE TABLE NODES " + // Таблица 1. "Nodes"
                 "(ID BIGINT PRIMARY KEY NOT NULL," +
                 " VERSION BIGINT," +
-                " _TIMESTAMP DATE," +
+                " _TIMESTAMP TIMESTAMPTZ," +
                 " UID BIGINT," +
                 " USER_NAME TEXT," +
                 " CHANGESET BIGINT," +
@@ -86,8 +91,9 @@ public class postgreDatabase {
                 ")";
         stmt.executeUpdate(sql);
         stmt.close();
+
         conn.commit();
-        System.err.println("Create table NODES completed successfully");
+        LOGGER.info("Create table NODES completed successfully");
 
     }
 

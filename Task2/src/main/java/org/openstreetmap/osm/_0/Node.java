@@ -8,8 +8,12 @@
 
 package org.openstreetmap.osm._0;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -122,9 +126,10 @@ public class Node {
         return id;
     }
 
+
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link BigInteger }
