@@ -56,23 +56,23 @@ public class XMlParser {
                 if (event == XMLEvent.START_ELEMENT && "node".equals(xmlEventReader.getLocalName())) {
                     Node node = (Node) unmarshaller.unmarshal(xmlEventReader);
                     listNodes.add(node);
-                    nodeDao.insertStatement(node);
+                   // nodeDao.insertStatement(node);
                    // nodeDao.insertPreparedStatement(node);
                     count++;
                     if (count==10)
                     {
                         count = 0;
-                       // nodeDao.insertBatch(listNodes);
+                        nodeDao.insertBatch(listNodes);
                         listNodes = new ArrayList<>();
                     }
                 }
             }
-           // if (count!=0)
-              //  nodeDao.insertBatch(listNodes);
+            if (count!=0)
+                nodeDao.insertBatch(listNodes);
             LOGGER.info("Insertion speed: " + nodeDao.getInsertTime() + " records per second");
            // nodeDao.delete(32521222);
-           // Node node1 = nodeDao.getById(32521222);
-           // System.out.println("Id: " + node1.getId() + " User: " + node1.getUser() + " Timestamp: " + node1.getTimestamp());
+            Node node1 = nodeDao.getById(32521222);
+            System.out.println("Id: " + node1.getId() + " User: " + node1.getUser() + " Timestamp: " + node1.getTimestamp());
             if (database.getConnection()!=null)
             database.disconnectDatabase();
         } catch (FileNotFoundException | XMLStreamException | JAXBException  e) {
