@@ -13,13 +13,14 @@ public class Hello {
         BZip2CompressorInputStream ar = new BZip2CompressorInputStream( new FileInputStream(input));
         FileOutputStream out = new FileOutputStream(output);
         int len;
-        while ((len = ar.read(buffer)) > 0) {
+        while ((len = ar.read(buffer)) != -1) {
             out.write(buffer, 0, len);
         }
         ar.close();
         out.close();
     }
     public static void main(String[] args) throws IOException{
+        LOGGER.info("Application started");
         String inputPathname = "RU-NVS.osm.bz2";
         String outputPathname = "RU-NVS.osm";
         Options options = new Options();
@@ -30,7 +31,7 @@ public class Hello {
             cmd = parser.parse( options, args);
         } catch (ParseException pe) {
             HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp( "myappname", options );
+            formatter.printHelp( "Hello", options );
         }
         if (cmd.hasOption("in")) {
             System.out.println("Hello world!");
@@ -44,10 +45,16 @@ public class Hello {
         }
         if (!output.exists())
         {
+            LOGGER.info("Start unpacking");
             unpackedArchive();
+            LOGGER.info("Stop unpacking");
+        }
+        if (!output.exists())
+        {
+            LOGGER.error("Сould not unpack");
+            return;
         }
         XMlParser XMLparser = new XMlParser();
         XMLparser.parseXML(outputPathname);
-        LOGGER.info("a test message");
     }
 }

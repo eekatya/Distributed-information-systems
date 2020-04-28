@@ -1,3 +1,6 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -10,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class XMlParser {
+    private static Logger LOGGER = LoggerFactory.getLogger(XMlParser.class);
     private Map<String, Integer> userCorr;
     private Map<String, Integer> uniqueKeys;
     public XMlParser()
@@ -19,6 +23,7 @@ public class XMlParser {
     }
     public void checkUniqueKeys(String name, StartElement startElement)
     {
+        //LOGGER.info("Unique key calculation");
         Attribute attrb = startElement.getAttributeByName(new QName(name));
         if (attrb!=null)
         {
@@ -36,6 +41,7 @@ public class XMlParser {
         }
     }
     public void parseXML(String fileName) {
+        LOGGER.info("Start parsing");
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         try {
             XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(new FileInputStream(fileName));
@@ -44,20 +50,21 @@ public class XMlParser {
                 if (xmlEvent.isStartElement()) {
                     StartElement startElement = xmlEvent.asStartElement();
                     if (startElement.getName().getLocalPart().equals("node")) {
-                        checkUniqueKeys("id", startElement);
+                     /*   checkUniqueKeys("id", startElement);
                         checkUniqueKeys("version", startElement);
-                        checkUniqueKeys("timestamp", startElement);
+                        checkUniqueKeys("timestamp", startElement);*/
                         checkUniqueKeys("uid", startElement);
-                        checkUniqueKeys("user", startElement);
+                     /*   checkUniqueKeys("user", startElement);
                         checkUniqueKeys("changeset", startElement);
                         checkUniqueKeys("lat", startElement);
-                        checkUniqueKeys("lon", startElement);
+                        checkUniqueKeys("lon", startElement);*/
                         calculCorrect(startElement);
                     }
                 }
             }
+            LOGGER.info("Stop parsing");
             for (Map.Entry entry : uniqueKeys.entrySet()) {
-                System.out.println("The name of key: " + entry.getKey() + " - " + "number of tags that contain this key: " + entry.getValue());
+                System.out.println("The name of key: " + entry.getKey().toString() + " - " + "number of tags that contain this key: " + entry.getValue());
             }
             userCorr.entrySet()
                     .stream()
@@ -70,6 +77,7 @@ public class XMlParser {
     }
 
     private void calculCorrect(StartElement startElement) {
+        //LOGGER.info("User corrections calculation");
         Attribute attrb = startElement.getAttributeByName(new QName("user"));
         if (attrb!=null)
         {
