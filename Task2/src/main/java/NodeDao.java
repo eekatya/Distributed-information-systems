@@ -7,10 +7,12 @@ import java.util.ArrayList;
 public class NodeDao extends DAO<Node> {
     private postgreDatabase database;
     private Connection conn;
+    private SpeedCalculation calc;
 
     NodeDao(Connection conn)
     {
         this.conn = conn;
+        calc = new SpeedCalculation();
     }
 
     public void insertBatch(ArrayList<Node> list) {
@@ -30,9 +32,13 @@ public class NodeDao extends DAO<Node> {
                 pStatement.setDouble(8, node.getLon());
                 pStatement.addBatch();
             }
-            assert pStatement != null;
+            long startTime = System.currentTimeMillis();
             pStatement.executeBatch();
             conn.commit();
+            long finishTime = System.currentTimeMillis();
+            calc.setConsumedMillis(finishTime - startTime);
+            calc.addRecords(list.size());
+             System.out.println("Затрачено " + calc.getTime() + " миллисекунд; Столько записей:" + calc.getNumOfRecords());
             pStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,9 +59,16 @@ public class NodeDao extends DAO<Node> {
             pStatement.setBigDecimal(6, new BigDecimal(node.getChangeset()));
             pStatement.setDouble(7, node.getLat());
             pStatement.setDouble(8, node.getLon());
+            long startTime = System.currentTimeMillis();
             pStatement.executeUpdate();
-            pStatement.close();
             conn.commit();
+            long finishTime = System.currentTimeMillis();
+            calc.setConsumedMillis(finishTime - startTime);
+            calc.addRecords(1);
+           // System.out.println("Затрачено " + calc.getTime() + " миллисекунд; Столько записей:" + calc.getNumOfRecords());
+            pStatement.close();
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,9 +83,14 @@ public class NodeDao extends DAO<Node> {
             stmt = conn.createStatement();
             timestamp = new Timestamp(node.getTimestamp().toGregorianCalendar().getTimeInMillis());
             sql = "INSERT INTO NODES (ID, VERSION, _TIMESTAMP, UID, USER_NAME, CHANGESET, LAT, LON) VALUES (" + node.getId().toString() + ", " + node.getVersion().toString()+ ", "  +  "'" + timestamp.toString().replace(',', '.') + "'"  + ", " + node.getUid().toString()+ ", " +  "'" + node.getUser().replace('\'', '.')+ "'" + ", " + node.getChangeset().toString()+ ", " + node.getLat().toString().replace(',', '.')+ ", " + node.getLon().toString().replace(',', '.') + ");";
+            long startTime = System.currentTimeMillis();
             stmt.executeUpdate(sql);
-            stmt.close();
             conn.commit();
+            long finishTime = System.currentTimeMillis();
+            calc.setConsumedMillis(finishTime - startTime);
+            calc.addRecords(1);
+            System.out.println("Затрачено " + calc.getTime() + " миллисекунд; Столько записей:" + calc.getNumOfRecords());
+            stmt.close();
             //System.err.println("Table NODES filled");
         } catch (Exception e) {
             try {
@@ -83,7 +101,10 @@ public class NodeDao extends DAO<Node> {
             }
         }
     }
-
+    public long getInsertTime()
+    {
+        return calc.timeCalculate();
+    }
     public  Node getById(int id)
     {
         Node node = null;

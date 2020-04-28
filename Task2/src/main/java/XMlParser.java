@@ -20,7 +20,6 @@ public class XMlParser {
     XMlParser()
     {
         init();
-
     }
 
     private void init() {
@@ -46,25 +45,27 @@ public class XMlParser {
             XMLStreamReader xmlEventReader = xmlInputFactory.createXMLStreamReader(new FileInputStream(fileName));
             JAXBContext context = JAXBContext.newInstance(Node.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
+            nodeDao = new NodeDao(database.getConnection());
             ArrayList<Node> listNodes = new ArrayList<>();
             while (xmlEventReader.hasNext()) {
                 int event = xmlEventReader.next();
                 if (event == XMLEvent.START_ELEMENT && "node".equals(xmlEventReader.getLocalName())) {
                     Node node = (Node) unmarshaller.unmarshal(xmlEventReader);
-                    nodeDao = new NodeDao(database.getConnection());
                     listNodes.add(node);
-                    nodeDao.insertPreparedStatement(node);
+                    nodeDao.insertStatement(node);
+                   // nodeDao.insertPreparedStatement(node);
                     count++;
                     if (count==10)
                     {
                         count = 0;
-                      //  nodeDao.insertBatch(listNodes);
+                       // nodeDao.insertBatch(listNodes);
                         listNodes = new ArrayList<>();
                     }
                 }
             }
-          /*  if (count!=0)
-                nodeDao.insertBatch(listNodes);*/
+           // if (count!=0)
+              //  nodeDao.insertBatch(listNodes);
+            System.out.println("Insertion speed: " + nodeDao.getInsertTime() + " records per second");
             if (database.getConnection()!=null)
             database.disconnectDatabase();
         } catch (FileNotFoundException | XMLStreamException | JAXBException  e) {
