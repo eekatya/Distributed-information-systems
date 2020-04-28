@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version="0.6" generator="Osmosis 0.41-44-g988e1a9">
+  <bounds minlon="74.90208" minlat="53.16822" maxlon="85.25933" maxlat="57.43014" origin="http://www.openstreetmap.org/api/0.6"/>
+  <node id="27503928" version="36" timestamp="2015-01-29T11:42:06Z" uid="54441" user="SMP" changeset="28484183" lat="55.0282215" lon="82.9234476">
+    <tag k="addr:country" v="RU"/>
+  </node>
+<node id="32521222" version="2" timestamp="2009-05-02T14:34:25Z" uid="17497" user="katpatuka" changeset="1048654" lat="54.7724042" lon="83.1009863"/>
+  <node id="81445841" version="3" timestamp="2013-08-02T23:56:10Z" uid="133332" user="AMDmi3" changeset="17198430" lat="55.1630961" lon="82.8301454"/>
+  <node id="81445843" version="3" timestamp="2013-08-02T23:56:10Z" uid="133332" user="AMDmi3" changeset="17198430" lat="55.1438703" lon="82.8151494"/>
+  <node id="81445844" version="3" timestamp="2013-08-02T23:56:10Z" uid="133332" user="AMDmi3" changeset="17198430" lat="55.1305306" lon="82.8057091"/>
+  <node id="81445846" version="2" timestamp="2007-10-20T16:48:06Z" uid="13565" user="hadhuey" changeset="264331" lat="55.1226816" lon="82.7919002"/>
+  <node id="81445848" version="3" timestamp="2013-08-02T23:56:10Z" uid="133332" user="AMDmi3" changeset="17198430" lat="55.1086357" lon="82.782722"/>
+  <node id="81445849" version="3" timestamp="2013-08-02T23:56:10Z" uid="133332" user="AMDmi3" changeset="17198430" lat="55.0939292" lon="82.790601"/>
+  <node id="81445852" version="3" timestamp="2013-08-02T23:56:10Z" uid="133332" user="AMDmi3" changeset="17198430" lat="55.0506193" lon="82.8213982"/>
+  <node id="81445853" version="4" timestamp="2013-08-02T23:56:10Z" uid="133332" user="AMDmi3" changeset="17198430" lat="55.0413623" lon="82.8369264"/>
+  <node id="81445857" version="4" timestamp="2014-06-11T15:28:00Z" uid="2097910" user="Sergey_Dzhagov" changeset="22873715" lat="55.0104369" lon="82.9169977"/>
+  <node id="81445859" version="3" timestamp="2013-08-02T23:56:10Z" uid="133332" user="AMDmi3" changeset="17198430" lat="55.0038583" lon="82.9317925"/>
+  <node id="81445860" version="4" timestamp="2013-08-02T23:56:10Z" uid="133332" user="AMDmi3" changeset="17198430" lat="54.9852953" lon="82.9550898"/>
+  <node id="81445861" version="5" timestamp="2013-08-02T23:56:10Z" uid="133332" user="AMDmi3" changeset="17198430" lat="54.9711296" lon="82.970546"/>
+  <node id="81445863" version="3" timestamp="2008-03-18T09:20:36Z" uid="21272" user="Alexey" changeset="347867" lat="54.9506919" lon="83.0140301"/>
+<way id="216638602" version="1" timestamp="2013-04-09T16:19:14Z" uid="605402" user="xscvxc" changeset="15667843">
+    <nd ref="2260300301"/>
+    <nd ref="2260300341"/>
+    <nd ref="2260300345"/>
+    <nd ref="2260300305"/>
+    <nd ref="2260300301"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="216638603" version="1" timestamp="2013-04-09T16:19:14Z" uid="605402" user="xscvxc" changeset="15667843">
+    <nd ref="2260300387"/>
+    <nd ref="2260300429"/>
+    <nd ref="2260300426"/>
+    <nd ref="2260300385"/>
+    <nd ref="2260300387"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <relation id="5199921" version="1" timestamp="2015-05-27T06:13:24Z" uid="2747740" user="F1ex" changeset="31494253">
+    <member type="way" ref="52578289" role="outer"/>
+    <member type="way" ref="348843703" role="outer"/>
+    <tag k="building" v="garages"/>
+    <tag k="type" v="multipolygon"/>
+  </relation>
+</osm>
