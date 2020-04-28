@@ -9,6 +9,7 @@
 package org.openstreetmap.osm._0;
 
 import java.math.BigInteger;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;

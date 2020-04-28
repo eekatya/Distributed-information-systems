@@ -12,31 +12,65 @@ import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.StringReader;
+import java.sql.SQLException;
 import java.util.*;
 import org.openstreetmap.osm._0.*;
 public class XMlParser {
-    public XMlParser() {
+    private postgreDatabase database;
+    XMlParser()
+    {
+        init();
 
     }
 
+    private void init() {
+        database = new postgreDatabase();
+        try {
+            if (database.getConnection()!=null)
+                database.disconnectDatabase();
+            database.dropDatabase();
+            database.createDatabase();
+            database.createAllTables();
+        } catch (Exception e) {
+            if (database.getConnection()!=null)
+                database.disconnectDatabase();
+            e.printStackTrace();
+        }
+    }
+
     public void parseXML(String fileName) {
+        int count = 0;
+        NodeDao nodeDao = null;
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         try {
             XMLStreamReader xmlEventReader = xmlInputFactory.createXMLStreamReader(new FileInputStream(fileName));
             JAXBContext context = JAXBContext.newInstance(Node.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
+            ArrayList<Node> listNodes = new ArrayList<>();
             while (xmlEventReader.hasNext()) {
                 int event = xmlEventReader.next();
                 if (event == XMLEvent.START_ELEMENT && "node".equals(xmlEventReader.getLocalName())) {
                     Node node = (Node) unmarshaller.unmarshal(xmlEventReader);
-                    System.out.println(node.getUser());
-
+                    nodeDao = new NodeDao(database.getConnection());
+                    listNodes.add(node);
+                    nodeDao.insertPreparedStatement(node);
+                    count++;
+                    if (count==10)
+                    {
+                        count = 0;
+                      //  nodeDao.insertBatch(listNodes);
+                        listNodes = new ArrayList<>();
+                    }
                 }
             }
-
-        } catch (FileNotFoundException | XMLStreamException | JAXBException e) {
+          /*  if (count!=0)
+                nodeDao.insertBatch(listNodes);*/
+            if (database.getConnection()!=null)
+            database.disconnectDatabase();
+        } catch (FileNotFoundException | XMLStreamException | JAXBException  e) {
             e.printStackTrace();
         }
+
     }
 }
 
