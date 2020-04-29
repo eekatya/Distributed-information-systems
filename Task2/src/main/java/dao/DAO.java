@@ -1,4 +1,5 @@
-import java.math.BigDecimal;
+
+package dao;
 import java.util.ArrayList;
 
 public abstract class DAO<T> {
@@ -9,14 +10,3 @@ public abstract class DAO<T> {
     public abstract void update(T el);
     public abstract void delete(int id);
 }
-/*    boolean insertNodeUsingPreparedStatement(Node node);
-
-    boolean insertNodeUsingStatement(Node node);
-
-    void insertBatch(List<Node> nodes);
-
-    Optional<Node> getNodeById(Integer id);
-
-    boolean updateNode(Node node);
-
-    boolean deleteNode(Integer id);*/

@@ -1,19 +1,23 @@
-import org.openstreetmap.osm._0.Node;
+package dao;
 import org.openstreetmap.osm._0.Way;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import java.math.BigInteger;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class WayDAO {
-    private postgreDatabase database;
+public class WayDAO extends DAO<Way>{
+    private static Logger LOGGER = LoggerFactory.getLogger(WayDAO.class);
     private Connection conn;
 
-    WayDAO(Connection conn) {
+    public WayDAO(Connection conn) {
         this.conn = conn;
     }
+    @Override
     public void insertStatement(Way way) {
         Statement stmt;
         String sql;
@@ -33,7 +37,7 @@ public class WayDAO {
             }
         }
     }
-
+    @Override
     public Way getById(int id) {
         Way way = new Way();
         try {
@@ -59,7 +63,7 @@ public class WayDAO {
 
     }
 
-
+    @Override
     public  void update(Way way) {
         Statement stmt;
         String sql;
@@ -80,11 +84,8 @@ public class WayDAO {
             }
         }
     }
-
-
-
-
-    public  void delete(int id)
+    @Override
+    public void delete(int id)
     {
         try {
             PreparedStatement pStatement = conn.prepareStatement(
@@ -96,5 +97,15 @@ public class WayDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    @Override
+    public void insertBatch(ArrayList<Way> list)
+    {
+        LOGGER.info("Not yet implemented");
+    }
+    @Override
+    public void insertPreparedStatement(Way way)
+    {
+        LOGGER.info("Not yet implemented");
     }
 }

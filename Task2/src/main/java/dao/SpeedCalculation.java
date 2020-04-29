@@ -1,3 +1,4 @@
+package dao;
 public class SpeedCalculation {
     private long time;
     private int numOfRecords;
