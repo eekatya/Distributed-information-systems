@@ -90,7 +90,6 @@ public class NodeDao extends DAO<Node> {
             long finishTime = System.currentTimeMillis();
             calc.setConsumedMillis(finishTime - startTime);
             calc.addRecords(1);
-            System.out.println("Затрачено " + calc.getTime() + " миллисекунд; Столько записей:" + calc.getNumOfRecords());
             stmt.close();
         } catch (Exception e) {
             try {
