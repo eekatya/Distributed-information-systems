@@ -91,9 +91,36 @@ public class postgreDatabase {
                 ")";
         stmt.executeUpdate(sql);
         stmt.close();
-
         conn.commit();
         LOGGER.info("Create table NODES completed successfully");
+
+        stmt = conn.createStatement();
+        sql = "CREATE TABLE WAYS " + // Таблица 2. "Way"
+                "(ID BIGINT PRIMARY KEY NOT NULL," +
+                " VERSION BIGINT," +
+                " _TIMESTAMP TIMESTAMPTZ," +
+                " UID BIGINT," +
+                " USER_NAME TEXT," +
+                " CHANGESET BIGINT" +
+                ")";
+        stmt.executeUpdate(sql);
+        stmt.close();
+        conn.commit();
+        LOGGER.info("Create table WAYS completed successfully");
+
+        stmt = conn.createStatement();
+        sql = "CREATE TABLE RELATIONS " + // Таблица 3. "Relations"
+                "(ID BIGINT PRIMARY KEY NOT NULL," +
+                " VERSION BIGINT," +
+                " _TIMESTAMP TIMESTAMPTZ," +
+                " UID BIGINT," +
+                " USER_NAME TEXT," +
+                " CHANGESET BIGINT" +
+                ")";
+        stmt.executeUpdate(sql);
+        stmt.close();
+        conn.commit();
+        LOGGER.info("Create table RELATIONS completed successfully");
 
     }
 
