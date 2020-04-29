@@ -10,11 +10,9 @@ public class postgreDatabase {
     private static Logger LOGGER = LoggerFactory.getLogger(postgreDatabase.class);
     public static final String DB_DRIVER_NAME = "org.postgresql.Driver";
     public static final String DB_USER_NAME = "postgres";
-  //  public static final String DB_CONNECTION_URL = "jdbc:postgresql://localhost:5432/node_database" ;
-    public static final String DB_CONNECTION_URL = "jdbc:postgresql://localhost:5432/___node_database" ;
+    public static final String DB_CONNECTION_URL = "jdbc:postgresql://localhost:5432/node_database" ;
     public static final String CONNECTION_URL = "jdbc:postgresql://localhost:5432/";
     public static final String DB_PASSWORD = "1";
-  //  public static final String CONNECTION_URL = "jdbc:postgresql://localhost:5432/";
     private Connection conn;
     public void connectDatabase() {
         try {
@@ -48,7 +46,7 @@ public class postgreDatabase {
         LOGGER.info("Connected to postgreSQL successfully");
         conn.setAutoCommit(true);
         stmt = conn.createStatement();
-        sql = "DROP DATABASE IF EXISTS ___node_database";
+        sql = "DROP DATABASE IF EXISTS node_database";
         stmt.executeUpdate(sql);
         stmt.close();
         conn.close();
@@ -64,7 +62,7 @@ public class postgreDatabase {
         LOGGER.info("Connected to postgreSQL successfully");
         conn.setAutoCommit(true);
         stmt = conn.createStatement();
-        sql = "CREATE DATABASE ___node_database";
+        sql = "CREATE DATABASE node_database";
         stmt.execute(sql);
         stmt.close();
         conn.close();
