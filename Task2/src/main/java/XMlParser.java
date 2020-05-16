@@ -16,17 +16,17 @@ import org.slf4j.LoggerFactory;
 
 public class XMlParser {
     private static Logger LOGGER = LoggerFactory.getLogger(XMlParser.class);
-    private postgreDatabase database;
+    private PostgreDatabase database;
     private static final String typeOfInsert = "USING_STATEMENT";
-   // private static final String typeOfInsert = "USING_PREPARED_STATEMENT";
-  //  private static final String typeOfInsert = "USING_BATCH";
+    //private static final String typeOfInsert = "USING_PREPARED_STATEMENT";
+    //private static final String typeOfInsert = "USING_BATCH";
     XMlParser()
     {
         init();
     }
 
     private void init() {
-        database = new postgreDatabase();
+        database = new PostgreDatabase();
         try {
             if (database.getConnection()!=null)
                 database.disconnectDatabase();
@@ -41,19 +41,25 @@ public class XMlParser {
     }
 
     public void parseXML(String fileName) {
-        int count = 0;
+        int countNode = 0;
+        int countWay = 0;
         NodeDao nodeDao = null;
+        WayDAO wayDAO = null;
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         try {
             XMLStreamReader xmlEventReader = xmlInputFactory.createXMLStreamReader(new FileInputStream(fileName));
-            JAXBContext context = JAXBContext.newInstance(Node.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
+            JAXBContext contextNode = JAXBContext.newInstance(Node.class);
+            JAXBContext contextWay = JAXBContext.newInstance(Way.class);
+            Unmarshaller unmarshalNode = contextNode.createUnmarshaller();
+            Unmarshaller unmarshalWay = contextWay.createUnmarshaller();
             nodeDao = new NodeDao(database.getConnection());
+            wayDAO = new WayDAO(database.getConnection());
             ArrayList<Node> listNodes = new ArrayList<>();
+            ArrayList<Way> listWays = new ArrayList<>();
             while (xmlEventReader.hasNext()) {
                 int event = xmlEventReader.next();
                 if (event == XMLEvent.START_ELEMENT && "node".equals(xmlEventReader.getLocalName())) {
-                    Node node = (Node) unmarshaller.unmarshal(xmlEventReader);
+                    Node node = (Node) unmarshalNode.unmarshal(xmlEventReader);
                     switch (typeOfInsert)
                     {
                         case("USING_STATEMENT"):
@@ -64,12 +70,38 @@ public class XMlParser {
                             break;
                         case("USING_BATCH"):
                             listNodes.add(node);
-                            count++;
-                            if (count==10)
+                            countNode++;
+                            if (countNode==10)
                             {
-                                count = 0;
+                                countNode = 0;
                                 nodeDao.insertBatch(listNodes);
                                 listNodes = new ArrayList<>();
+                            }
+                            break;
+                        default:
+                            LOGGER.error("Uncorrected type of insert");
+                            break;
+                    }
+                }
+                else if (event == XMLEvent.START_ELEMENT && "way".equals(xmlEventReader.getLocalName()))
+                {
+                    Way way = (Way) unmarshalWay.unmarshal(xmlEventReader);
+                    switch (typeOfInsert)
+                    {
+                        case("USING_STATEMENT"):
+                            wayDAO.insertStatement(way);
+                            break;
+                        case("USING_PREPARED_STATEMENT"):
+                            wayDAO.insertPreparedStatement(way);
+                            break;
+                        case("USING_BATCH"):
+                            listWays.add(way);
+                            countWay++;
+                            if (countWay==10)
+                            {
+                                countWay = 0;
+                                wayDAO.insertBatch(listWays);
+                                listWays = new ArrayList<>();
                             }
                             break;
                         default:
@@ -80,10 +112,13 @@ public class XMlParser {
             }
             if (typeOfInsert.equals("USING_BATCH"))
             {
-                if (count!=0)
-                  nodeDao.insertBatch(listNodes);
+                if (countNode!=0)
+                    nodeDao.insertBatch(listNodes);
+                if (countWay!=0)
+                  wayDAO.insertBatch(listWays);
             }
-            LOGGER.info("Insertion speed: " + nodeDao.getInsertTime() + " records per second");
+            LOGGER.info("Insertion speed of nodes: " + nodeDao.getInsertTime() + " records per second");
+            LOGGER.info("Insertion speed of ways: " + wayDAO.getInsertTime() + " records per second");
             if (database.getConnection()!=null)
             database.disconnectDatabase();
         } catch (FileNotFoundException | XMLStreamException | JAXBException  e) {

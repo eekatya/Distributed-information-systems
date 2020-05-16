@@ -1,10 +1,12 @@
 package dao;
+import org.openstreetmap.osm._0.Node;
 import org.openstreetmap.osm._0.Way;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,9 +15,11 @@ import java.util.GregorianCalendar;
 public class WayDAO extends DAO<Way>{
     private static Logger LOGGER = LoggerFactory.getLogger(WayDAO.class);
     private Connection conn;
+    private SpeedCalculation calc;
 
     public WayDAO(Connection conn) {
         this.conn = conn;
+        calc = new SpeedCalculation();
     }
     @Override
     public void insertStatement(Way way) {
@@ -26,8 +30,12 @@ public class WayDAO extends DAO<Way>{
             stmt = conn.createStatement();
             Timestamp timestamp = new Timestamp(way.getTimestamp().toGregorianCalendar().getTimeInMillis());
             sql = "INSERT INTO WAYS (ID, VERSION, _TIMESTAMP, UID, USER_NAME, CHANGESET) VALUES (" + way.getId() + ", " + way.getVersion() + ", " + "'" + timestamp + "'" + ", " + way.getUid() + ", " + "'" + way.getUser().replace('\'', '.') + "'" + ", " + way.getChangeset() + ");";
+            long startTime = System.currentTimeMillis();
             stmt.executeUpdate(sql);
             conn.commit();
+            long finishTime = System.currentTimeMillis();
+            calc.setConsumedMillis(finishTime - startTime);
+            calc.addRecords(1);
             stmt.close();
         } catch (Exception e) {
             try {
@@ -84,6 +92,9 @@ public class WayDAO extends DAO<Way>{
             }
         }
     }
+    public long getInsertTime() {
+        return calc.timeCalculate();
+    }
     @Override
     public void delete(int id)
     {
@@ -101,11 +112,57 @@ public class WayDAO extends DAO<Way>{
     @Override
     public void insertBatch(ArrayList<Way> list)
     {
-        LOGGER.info("Not yet implemented");
+        String query = "INSERT INTO WAYS (ID, VERSION, _TIMESTAMP, UID, USER_NAME, CHANGESET) VALUES (?,?,?,?,?,?)";
+        PreparedStatement pStatement = null;
+        Timestamp timestamp = null;
+        try {
+            pStatement = conn.prepareStatement(query);
+            for (Way way : list) {
+                timestamp = new Timestamp(way.getTimestamp().toGregorianCalendar().getTimeInMillis());
+                pStatement.setBigDecimal(1, new BigDecimal(way.getId()));
+                pStatement.setBigDecimal(2, new BigDecimal(way.getVersion()));
+                pStatement.setTimestamp(3, timestamp);
+                pStatement.setBigDecimal(4, new BigDecimal(way.getUid()));
+                pStatement.setString(5, way.getUser());
+                pStatement.setBigDecimal(6, new BigDecimal(way.getChangeset()));
+                pStatement.addBatch();
+            }
+            long startTime = System.currentTimeMillis();
+            pStatement.executeBatch();
+            conn.commit();
+            long finishTime = System.currentTimeMillis();
+            calc.setConsumedMillis(finishTime - startTime);
+            calc.addRecords(list.size());
+            pStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
     @Override
     public void insertPreparedStatement(Way way)
     {
-        LOGGER.info("Not yet implemented");
+        String query = "INSERT INTO WAYS (ID, VERSION, _TIMESTAMP, UID, USER_NAME, CHANGESET) VALUES (?,?,?,?,?,?)";
+        PreparedStatement pStatement = null;
+        Timestamp timestamp = new Timestamp(way.getTimestamp().toGregorianCalendar().getTimeInMillis());
+        try {
+            pStatement = conn.prepareStatement(query);
+            pStatement.setBigDecimal(1, new BigDecimal(way.getId()));
+            pStatement.setBigDecimal(2, new BigDecimal(way.getVersion()));
+            pStatement.setTimestamp(3, timestamp);
+            pStatement.setBigDecimal(4, new BigDecimal(way.getUid()));
+            pStatement.setString(5, way.getUser());
+            pStatement.setBigDecimal(6, new BigDecimal(way.getChangeset()));
+            long startTime = System.currentTimeMillis();
+            pStatement.executeUpdate();
+            conn.commit();
+            long finishTime = System.currentTimeMillis();
+            calc.setConsumedMillis(finishTime - startTime);
+            calc.addRecords(1);
+            pStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

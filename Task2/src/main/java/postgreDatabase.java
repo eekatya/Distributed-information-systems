@@ -6,8 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-public class postgreDatabase {
-    private static Logger LOGGER = LoggerFactory.getLogger(postgreDatabase.class);
+public class PostgreDatabase {
+    private static Logger LOGGER = LoggerFactory.getLogger(PostgreDatabase.class);
     public static final String DB_DRIVER_NAME = "org.postgresql.Driver";
     public static final String DB_USER_NAME = "postgres";
     public static final String DB_CONNECTION_URL = "jdbc:postgresql://localhost:5432/node_database" ;

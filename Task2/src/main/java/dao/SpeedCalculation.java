@@ -7,11 +7,6 @@ public class SpeedCalculation {
         time = 0;
         numOfRecords = 0;
     }
-    public void reset()
-    {
-        time = 0;
-        numOfRecords = 0;
-    }
     public long getTime()
     {
         return time;
@@ -34,5 +29,6 @@ public class SpeedCalculation {
 
     public void setConsumedMillis(long time) {
         this.time+=time;
+       // System.out.println(this.time);
     }
 }
