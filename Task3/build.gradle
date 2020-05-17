@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")  // spring boot gradle plugin will used for generate jar
+    }
+}
+
+apply plugin: "java"
+apply plugin: "application"
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+
+
+group 'ru.nsu.fit.ermakova'
+version '1.0-SNAPSHOT'
+
+mainClassName = "com.bettercoding.spring.Hello"
+sourceCompatibility = 10
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    //compile "org.slf4j:slf4j-log4j12:1.8.0-alpha2"
+    //compile group: 'org.springframework:spring-webmvc'
+    compile 'org.apache.commons:commons-compress:1.20'
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
+    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
+    compile group: 'javax.activation', name: 'activation', version: '1.1.1'
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
+    //compile("org.springframework.boot:spring-boot-starter-web")
+}
+
+
+
