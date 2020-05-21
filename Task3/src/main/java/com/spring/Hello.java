@@ -48,25 +48,63 @@ public class Hello {
     private void testJpaMethods(){
        // LOGGER.info("LOGGERLOGGERLOGGERLOGGERLOGGERLOGGERLOGGERLOGGERLOGGERLOGGER");
        //System.out.println("SYSTEMSYSTEMSYSTEMSYSTEMSYSTEM");
-    /*    NodeEntity nodeEntity = new NodeEntity();
-        Long id = 3521065143L;
-        Double lat = 54.8766067;
+     /*   NodeEntity nodeEntity1 = new NodeEntity();
+        Long id = 35243L;
+        Double lat = 84.8766067;
+        nodeEntity1.setLat(lat);
+        Double lon = 88.8766067;
+        nodeEntity1.setLon(lon);
+        nodeEntity1.setId(id);
+        BigInteger uid = BigInteger.valueOf(777);
+        String name_user = "gbcvbvf";
+        nodeEntity1.setUid(uid);
+        nodeEntity1.setUser(name_user);
+        Timestamp tm = new Timestamp(1000);
+        nodeEntity1.setTimestamp(tm);
+        BigInteger version = BigInteger.valueOf(9);
+        nodeEntity1.setVersion(version);
+        BigInteger changeset = BigInteger.valueOf(6989);
+        nodeEntity1.setChangeset(changeset);
+        nodeEntity1.print();
+        nodeService.createNodeEntity(nodeEntity1);
+        NodeEntity nodeEntity = new NodeEntity();
+        id = 35215143L;
+        lat = 4.8766067;
         nodeEntity.setLat(lat);
-        Double lon = 58.8766067;
+        lon = 8.8766067;
         nodeEntity.setLon(lon);
         nodeEntity.setId(id);
-        BigInteger uid = BigInteger.valueOf(777777);
-        String name_user = "User_name";
+        uid = BigInteger.valueOf(7777);
+        name_user = "gbfbf";
         nodeEntity.setUid(uid);
         nodeEntity.setUser(name_user);
-        Timestamp tm = new Timestamp(10000);
+        tm = new Timestamp(10000);
         nodeEntity.setTimestamp(tm);
-        BigInteger version = BigInteger.valueOf(6);
+        version = BigInteger.valueOf(6);
         nodeEntity.setVersion(version);
-        BigInteger changeset = BigInteger.valueOf(68989);
+        changeset = BigInteger.valueOf(68989);
         nodeEntity.setChangeset(changeset);
         nodeEntity.print();
-        nodeService.createNodeEntity(nodeEntity);*/
+        nodeService.createNodeEntity(nodeEntity);
+        NodeEntity nodeEntity2 = new NodeEntity();
+        id = 35216143L;
+        lat = 104.8766067;
+        nodeEntity2.setLat(lat);
+        lon = 108.8766067;
+        nodeEntity2.setLon(lon);
+        nodeEntity2.setId(id);
+        uid = BigInteger.valueOf(76777);
+        name_user = "gb5434f";
+        nodeEntity2.setUid(uid);
+        nodeEntity2.setUser(name_user);
+        tm = new Timestamp(100000);
+        nodeEntity2.setTimestamp(tm);
+        version = BigInteger.valueOf(6);
+        nodeEntity2.setVersion(version);
+        changeset = BigInteger.valueOf(68988);
+        nodeEntity2.setChangeset(changeset);
+        nodeEntity2.print();
+        nodeService.createNodeEntity(nodeEntity2);*/
       /*  Address address = new Address();
         address.setCity("Kiev");
         address.setHomeNumber("4");
@@ -98,7 +136,7 @@ public class Hello {
         wayEntity.setChangeset(changeset);
         wayEntity.print();
         wayService.createWayEntity(wayEntity);*/
-        RelationEntity relationEntity = new RelationEntity();
+      /*  RelationEntity relationEntity = new RelationEntity();
         Long id = 3521065143L;
         relationEntity.setId(id);
         BigInteger uid = BigInteger.valueOf(777777);
@@ -112,7 +150,7 @@ public class Hello {
         BigInteger changeset = BigInteger.valueOf(68989);
         relationEntity.setChangeset(changeset);
         relationEntity.print();
-        relationService.createRelationEntity(relationEntity);
+        relationService.createRelationEntity(relationEntity);*/
 
         userService.findAll().forEach(Users::print);
 

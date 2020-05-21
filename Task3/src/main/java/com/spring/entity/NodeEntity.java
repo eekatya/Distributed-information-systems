@@ -1,5 +1,6 @@
 package com.spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.spring.org.openstreetmap.osm._0.Tag;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +38,13 @@ public class NodeEntity {
     protected BigInteger changeset;
     @Column(name = "_timestamp")
     protected Timestamp timestamp;
+    //@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinColumn(name = "node_id")
+   // @OneToMany(targetEntity=TagEntity.class, mappedBy="NODES!",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    //protected List<Tag> tag;
+  /*  @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "nodeEntity", orphanRemoval = true)
+    private List<TagEntity> tags = new ArrayList<>();*/
     public NodeEntity()
     {}
     public NodeEntity(Long id, Double lat, Double lon, String user, BigInteger uid, BigInteger version, BigInteger changeset, Timestamp timestamp) {
@@ -49,25 +57,7 @@ public class NodeEntity {
         this.changeset = changeset;
         this.timestamp = timestamp;
     }
- /*   public long getNodeId() {
-        return nodeId;
-    }
-    public void setNodeId(long nodeId) {
-        this.nodeId = nodeId;
-    }*/
-  /*  public List<Tag> getTag() {
-        if (tag == null) {
-            tag = new ArrayList<Tag>();
-        }
-        return this.tag;
-    }*/
-  /*  public BigInteger getId() {
-        return id;
-    }
-    public void setId(BigInteger value) {
-        this.id = value;
-    }*/
-  public Long getId() {
+    public Long getId() {
       return id;
   }
     public void setId(Long value) {
@@ -131,5 +121,16 @@ public class NodeEntity {
     public void setTimestamp(Timestamp value) {
         this.timestamp = value;
     }
+  /*  public List<TagEntity> getTags() {
+        return tags;
+    }
+    public void addTag(TagEntity tagEntity) {
+        if (tags.contains(tagEntity)) {
+            return;
+        }
+        tags.add(tagEntity);
+        tagEntity.setNodeEntity(this);
+    }*/
+
 }
 
