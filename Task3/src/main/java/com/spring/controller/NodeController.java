@@ -34,7 +34,7 @@ public class NodeController {
             @RequestParam(value = "lat", required = false) Double lat,
             @RequestParam(value = "lon", required = false) Double lon,
             @RequestParam(value = "radius", required = false) Long radius) {
-        List<NodeEntity> nodes = nodeService.findByLocationAndRadius(54.87, 58.87, 1000000000L);
+        List<NodeEntity> nodes = nodeService.findByLocationAndRadius(lat, lon, radius);
         return new ResponseEntity<>(nodes, HttpStatus.OK);
     }
     @PostMapping(value = "/createNode")

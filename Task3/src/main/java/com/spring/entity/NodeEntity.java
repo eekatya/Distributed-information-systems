@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -18,12 +17,9 @@ import javax.persistence.*;
 @Table(name = "NODES1")
 public class NodeEntity {
     @Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
-   // private long nodeId;
    // protected List<Tag> tag;
     @Column(name = "id")
     protected Long id;
-   // protected BigInteger id;
     @Column(name = "lat")
     protected Double lat;
     @Column(name = "lon")

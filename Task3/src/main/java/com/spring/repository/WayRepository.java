@@ -1,6 +1,5 @@
 package com.spring.repository;
 
-import com.spring.entity.NodeEntity;
 import com.spring.entity.WayEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

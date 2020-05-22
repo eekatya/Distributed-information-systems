@@ -1,18 +1,11 @@
 package com.spring.entity;
 
-import com.spring.org.openstreetmap.osm._0.Tag;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.*;
 @Entity
 @Table(name = "RELATIONS")
 public class RelationEntity {

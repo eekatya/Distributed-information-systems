@@ -1,9 +1,7 @@
 package com.spring.service;
 
 import com.spring.entity.NodeEntity;
-import com.spring.entity.Users;
 import com.spring.repository.NodeRepository;
-import com.spring.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +29,6 @@ public class NodeService {
     public void deleteById(Long nodeId){
         nodeRepository.delete(nodeId);
     }
-   /* public void update(NodeEntity nodeEntity){
-        nodeRepository.save(nodeEntity);
-    }*/
     public List<NodeEntity> findByLocationAndRadius(Double lat, Double lon, Long radius)
     {
         return  nodeRepository.findByLocationAndRadius(lat, lon, radius);
@@ -43,8 +38,7 @@ public class NodeService {
         nodeEntity.setId(id);
         nodeRepository.save(nodeEntity);
     }
-
-   /* public List<NodeEntity> findAllByName(String name){
-        return nodeRepository.findAllByName(name);
-    }*/
+    public List<NodeEntity> findAllByUser(String user){
+        return nodeRepository.findAllByUser(user);
+    }
 }

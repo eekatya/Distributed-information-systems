@@ -1,11 +1,7 @@
 package com.spring.service;
 
-import com.spring.entity.NodeEntity;
 import com.spring.entity.RelationEntity;
-import com.spring.entity.Users;
-import com.spring.repository.NodeRepository;
 import com.spring.repository.RelationRepository;
-import com.spring.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +19,21 @@ public class RelationService {
 
     public void createRelationEntity(RelationEntity relationEntity) {
         relationRepository.save(relationEntity);
+    }
+    public List<RelationEntity> findAll(){
+        return relationRepository.findAll();
+    }
+    public RelationEntity findById(Long relationId){
+        return relationRepository.findOne(relationId);
+    }
+    public void deleteById(Long relationId){
+        relationRepository.delete(relationId);
+    }
+    public void updateById(RelationEntity relationEntity, Long id) {
+        relationEntity.setId(id);
+        relationRepository.save(relationEntity);
+    }
+    public List<RelationEntity> findAllByUser(String user){
+        return relationRepository.findAllByUser(user);
     }
 }
