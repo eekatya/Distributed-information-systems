@@ -43,19 +43,25 @@ public class XMlParser {
     public void parseXML(String fileName) {
         int countNode = 0;
         int countWay = 0;
+        int countRelation = 0;
         NodeDao nodeDao = null;
         WayDAO wayDAO = null;
+        RelationDAO relationDAO = null;
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         try {
             XMLStreamReader xmlEventReader = xmlInputFactory.createXMLStreamReader(new FileInputStream(fileName));
             JAXBContext contextNode = JAXBContext.newInstance(Node.class);
             JAXBContext contextWay = JAXBContext.newInstance(Way.class);
+            JAXBContext contextRelation = JAXBContext.newInstance(Relation.class);
             Unmarshaller unmarshalNode = contextNode.createUnmarshaller();
             Unmarshaller unmarshalWay = contextWay.createUnmarshaller();
+            Unmarshaller unmarshalRelation = contextWay.createUnmarshaller();
             nodeDao = new NodeDao(database.getConnection());
             wayDAO = new WayDAO(database.getConnection());
+            relationDAO = new RelationDAO(database.getConnection());
             ArrayList<Node> listNodes = new ArrayList<>();
             ArrayList<Way> listWays = new ArrayList<>();
+            ArrayList<Relation> listRelations = new ArrayList<>();
             while (xmlEventReader.hasNext()) {
                 int event = xmlEventReader.next();
                 if (event == XMLEvent.START_ELEMENT && "node".equals(xmlEventReader.getLocalName())) {
@@ -117,8 +123,6 @@ public class XMlParser {
                 if (countWay!=0)
                   wayDAO.insertBatch(listWays);
             }
-            LOGGER.info("Insertion speed of nodes: " + nodeDao.getInsertTime() + " records per second");
-            LOGGER.info("Insertion speed of ways: " + wayDAO.getInsertTime() + " records per second");
             if (database.getConnection()!=null)
             database.disconnectDatabase();
         } catch (FileNotFoundException | XMLStreamException | JAXBException  e) {

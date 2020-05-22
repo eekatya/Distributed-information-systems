@@ -10,7 +10,7 @@ public class PostgreDatabase {
     private static Logger LOGGER = LoggerFactory.getLogger(PostgreDatabase.class);
     public static final String DB_DRIVER_NAME = "org.postgresql.Driver";
     public static final String DB_USER_NAME = "postgres";
-    public static final String DB_CONNECTION_URL = "jdbc:postgresql://localhost:5432/node_database" ;
+    public static final String DB_CONNECTION_URL = "jdbc:postgresql://localhost:5432/nodedatabase" ;
     public static final String CONNECTION_URL = "jdbc:postgresql://localhost:5432/";
     public static final String DB_PASSWORD = "1";
     private Connection conn;
@@ -46,7 +46,7 @@ public class PostgreDatabase {
         LOGGER.info("Connected to postgreSQL successfully");
         conn.setAutoCommit(true);
         stmt = conn.createStatement();
-        sql = "DROP DATABASE IF EXISTS node_database";
+        sql = "DROP DATABASE IF EXISTS nodedatabase";
         stmt.executeUpdate(sql);
         stmt.close();
         conn.close();
@@ -62,7 +62,7 @@ public class PostgreDatabase {
         LOGGER.info("Connected to postgreSQL successfully");
         conn.setAutoCommit(true);
         stmt = conn.createStatement();
-        sql = "CREATE DATABASE node_database";
+        sql = "CREATE DATABASE nodedatabase";
         stmt.execute(sql);
         stmt.close();
         conn.close();
@@ -119,6 +119,18 @@ public class PostgreDatabase {
         stmt.close();
         conn.commit();
         LOGGER.info("Create table RELATIONS completed successfully");
+
+        stmt = conn.createStatement();
+        sql = "CREATE TABLE TAGS " + // Таблица 4. "Tags"
+                "(TAGS_ID SERIAL PRIMARY KEY," +
+                " K TEXT," +
+                " V TEXT," +
+                " ID BIGINT NOT NULL REFERENCES NODES (ID)" +
+                ")";
+        stmt.executeUpdate(sql);
+        stmt.close();
+        conn.commit();
+        LOGGER.info("Create table TAGS completed successfully");
     }
 
     public Connection getConnection() {

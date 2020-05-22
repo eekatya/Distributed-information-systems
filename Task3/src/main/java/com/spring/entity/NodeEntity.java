@@ -1,6 +1,7 @@
 package com.spring.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.spring.org.openstreetmap.osm._0.Node;
 import com.spring.org.openstreetmap.osm._0.Tag;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,6 +35,12 @@ public class NodeEntity {
     protected BigInteger changeset;
     @Column(name = "_timestamp")
     protected Timestamp timestamp;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "nodeEntity", orphanRemoval = true)
+    protected List<TagEntity> tags = new ArrayList<>();
+    // @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JoinColumn(name = "nodeId")
+   // @OneToMany(mappedBy = "nodeId", cascade=CascadeType.ALL, orphanRemoval=true)
+  //  protected List<TagEntity> tags = new ArrayList<>();
     //@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     //@JoinColumn(name = "node_id")
    // @OneToMany(targetEntity=TagEntity.class, mappedBy="NODES!",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
@@ -41,6 +48,7 @@ public class NodeEntity {
   /*  @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "nodeEntity", orphanRemoval = true)
     private List<TagEntity> tags = new ArrayList<>();*/
+   //@OneToMany(targetEntity=TagEntity.class, mappedBy="college", fetch=FetchType.EAGER)
     public NodeEntity()
     {}
     public NodeEntity(Long id, Double lat, Double lon, String user, BigInteger uid, BigInteger version, BigInteger changeset, Timestamp timestamp) {
@@ -53,6 +61,29 @@ public class NodeEntity {
         this.changeset = changeset;
         this.timestamp = timestamp;
     }
+
+    public NodeEntity(Node node) {
+        this.id = node.getId().longValue();
+        this.lat = node.getLat();
+        this.lon = node.getLon();
+        this.user = node.getUser();
+        this.uid = node.getUid();
+        this.version = node.getVersion();
+        this.changeset = node.getChangeset();
+        timestamp = new Timestamp(node.getTimestamp().toGregorianCalendar().getTimeInMillis());
+        List<Tag> tag = node.getTag();
+        for (int i = 0; i < tag.size(); i++) {
+            Tag element = tag.get(i);
+            TagEntity tagEntity = new TagEntity(element.getK(), element.getV(), this);
+            tags.add(tagEntity);
+        }
+        //List<TagEntity> tagEntityList = tags.stream().map(TagEntity::of).collect(Collectors.toList());
+    }
+
+    /*  public void addToTags(TagEntity tag) {
+          tag.setNodeEntity(this);
+          this.tags.add(tag);
+      }*/
     public Long getId() {
       return id;
   }

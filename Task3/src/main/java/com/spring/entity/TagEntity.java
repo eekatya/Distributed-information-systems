@@ -4,19 +4,41 @@ import javax.persistence.*;
 @Table(name = "TAGS")
 public class TagEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tags_id")
+    protected Long id;
     @Column(name = "k")
     protected String k;
     @Column(name = "v")
     protected String v;
+   // @Column(name = "nodeId")
+   // protected Long nodeId;
    // @Column(name = "node_id")
    // protected Long id;
    // @ManyToOne()
    // @JoinColumn(name="id", referencedColumnName = "id", insertable = false, updatable = false)
    // protected NodeEntity nodeEntity;
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id", nullable = false)
-    private NodeEntity nodeEntity;
+   // @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    //@JoinColumn(name = "id", nullable = false)
+   // @Column
+    //protected Long nodeId;
+    //private NodeEntity nodeEntity;
+   // @JoinColumn(name = "nodeId", referencedColumnName = "id")
+    //@ManyToOne(cascade = CascadeType.PERSIST)
+    //private NodeEntity nodeId;
+   @ManyToOne(fetch = FetchType.EAGER, optional = false)
+   @JoinColumn(name = "id", nullable = false)
+   private NodeEntity nodeEntity;
+    public TagEntity()
+    {
+
+    }
+    public TagEntity(String k, String v, NodeEntity nodeEntity) {
+        this.k = k;
+        this.v = v;
+        this.nodeEntity = nodeEntity;
+    }
+
     public String getK() {
         return k;
     }
@@ -30,7 +52,11 @@ public class TagEntity {
         this.v = value;
     }
 
-    public void setNodeEntity(NodeEntity nodeEntity) {
+   /* public void setNodeEntity(NodeEntity nodeEntity) {
+        this.nodeId = nodeEntity;
+    }*/
+
+ /*   public void setNodeEntity(NodeEntity nodeEntity) {
        /*     if (sameAsFormer(nodeEntity)) {
                 return;
             }
@@ -45,7 +71,7 @@ public class TagEntity {
             if (nodeEntity != null)
                 nodeEntity.addTag(this);*/
 
-    }
+
  /*   public void setId(Long id)
     {
         this.id = id;

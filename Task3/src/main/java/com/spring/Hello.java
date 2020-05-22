@@ -1,6 +1,7 @@
 package com.spring;
 
 import com.spring.entity.*;
+import com.spring.org.openstreetmap.osm._0.Node;
 import com.spring.org.openstreetmap.osm._0.Way;
 import com.spring.service.NodeService;
 import com.spring.service.RelationService;
@@ -43,20 +44,26 @@ public class Hello {
     public static void main(String[] args) {
         SpringApplication.run(Hello.class, args);
     }
-
+    @EventListener(ApplicationReadyEvent.class)
+    private void insertData() {
+        System.out.println("SYSTEMSYSTEMSYSTEMSYSTEMSYSTEM");
+    }
     @EventListener(ApplicationReadyEvent.class)
     private void testJpaMethods(){
+       // Node node = new Node();
+
+        System.out.println("SYSTEMSYSTEMSYSTEMSYSTEMSYSTEM");
        // LOGGER.info("LOGGERLOGGERLOGGERLOGGERLOGGERLOGGERLOGGERLOGGERLOGGERLOGGER");
        //System.out.println("SYSTEMSYSTEMSYSTEMSYSTEMSYSTEM");
-     /*   NodeEntity nodeEntity1 = new NodeEntity();
-        Long id = 35243L;
+   /*     NodeEntity nodeEntity1 = new NodeEntity();
+        Long id = 3503L;
         Double lat = 84.8766067;
         nodeEntity1.setLat(lat);
         Double lon = 88.8766067;
         nodeEntity1.setLon(lon);
         nodeEntity1.setId(id);
         BigInteger uid = BigInteger.valueOf(777);
-        String name_user = "gbcvbvf";
+        String name_user = "rrrrr";
         nodeEntity1.setUid(uid);
         nodeEntity1.setUser(name_user);
         Timestamp tm = new Timestamp(1000);
@@ -66,7 +73,7 @@ public class Hello {
         BigInteger changeset = BigInteger.valueOf(6989);
         nodeEntity1.setChangeset(changeset);
         nodeEntity1.print();
-        nodeService.createNodeEntity(nodeEntity1);
+        nodeService.createNodeEntity(nodeEntity1);/*
         NodeEntity nodeEntity = new NodeEntity();
         id = 35215143L;
         lat = 4.8766067;
