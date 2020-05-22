@@ -31,12 +31,17 @@ public class NodeService {
     public void deleteById(Long nodeId){
         nodeRepository.delete(nodeId);
     }
-    public void update(NodeEntity nodeEntity){
+   /* public void update(NodeEntity nodeEntity){
         nodeRepository.save(nodeEntity);
-    }
+    }*/
     public List<NodeEntity> findByLocationAndRadius(Double lat, Double lon, Long radius)
     {
         return  nodeRepository.findByLocationAndRadius(lat, lon, radius);
+    }
+
+    public void updateById(NodeEntity nodeEntity, Long id) {
+        nodeEntity.setId(id);
+        nodeRepository.save(nodeEntity);
     }
 
    /* public List<NodeEntity> findAllByName(String name){
