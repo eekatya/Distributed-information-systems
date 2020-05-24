@@ -42,22 +42,23 @@ public class NodeService {
     public void deleteById(Long nodeId){
         nodeRepository.delete(nodeId);
     }
-    public List<NodeEntity> findByLocationAndRadius(Double lat, Double lon, Long radius)
+    public List<NodeEntity> getAllNodesByRadius(Double lat, Double lon, Long radius)
     {
-        return  nodeRepository.findByLocationAndRadius(lat, lon, radius);
+        return  nodeRepository.getAllNodesByRadius(lat, lon, radius);
     }
 
     public void updateById(NodeEntity nodeEntity, Long id) {
         nodeEntity.setId(id);
         nodeRepository.save(nodeEntity);
     }
+
     public List<NodeEntity> findAllByUser(String user){
         return nodeRepository.findAllByUser(user);
     }
 
     @EventListener(ApplicationReadyEvent.class)
     private void insertData(){
-        XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+      /*  XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         try {
             XMLStreamReader xmlEventReader = xmlInputFactory.createXMLStreamReader(new FileInputStream("RU-NVS.osm"));
             JAXBContext contextNode = JAXBContext.newInstance(Node.class);
@@ -73,7 +74,7 @@ public class NodeService {
             }
         } catch (FileNotFoundException | XMLStreamException | JAXBException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 }

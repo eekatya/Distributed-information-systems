@@ -5,8 +5,6 @@ import com.spring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class TagService {
 
@@ -20,4 +18,5 @@ public class TagService {
     public void createTagEntity(TagEntity wayEntity) {
         tagRepository.save(wayEntity);
     }
+
 }

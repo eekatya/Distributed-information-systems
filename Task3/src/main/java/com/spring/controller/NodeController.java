@@ -30,11 +30,11 @@ public class NodeController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @GetMapping("/getAllNodesByRadius")
-    ResponseEntity<List<NodeEntity>> getAllNodesByRadius(
+    public ResponseEntity<List<NodeEntity>> getAllNodesByRadius(
             @RequestParam(value = "lat", required = false) Double lat,
             @RequestParam(value = "lon", required = false) Double lon,
             @RequestParam(value = "radius", required = false) Long radius) {
-        List<NodeEntity> nodes = nodeService.findByLocationAndRadius(lat, lon, radius);
+        List<NodeEntity> nodes = nodeService.getAllNodesByRadius(lat, lon, radius);
         return new ResponseEntity<>(nodes, HttpStatus.OK);
     }
     @PostMapping(value = "/createNode")

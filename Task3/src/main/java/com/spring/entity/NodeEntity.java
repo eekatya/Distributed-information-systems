@@ -5,8 +5,6 @@ import com.spring.org.openstreetmap.osm._0.Node;
 import com.spring.org.openstreetmap.osm._0.Tag;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigInteger;
@@ -15,10 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 @Entity
-@Table(name = "NODES1")
+@Table(name = "NODES")
 public class NodeEntity {
     @Id
-   // protected List<Tag> tag;
     @Column(name = "id")
     protected Long id;
     @Column(name = "lat")
@@ -35,20 +32,8 @@ public class NodeEntity {
     protected BigInteger changeset;
     @Column(name = "_timestamp")
     protected Timestamp timestamp;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "nodeEntity", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL, mappedBy = "nodeEntity", orphanRemoval = true)
     protected List<TagEntity> tags = new ArrayList<>();
-    // @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JoinColumn(name = "nodeId")
-   // @OneToMany(mappedBy = "nodeId", cascade=CascadeType.ALL, orphanRemoval=true)
-  //  protected List<TagEntity> tags = new ArrayList<>();
-    //@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    //@JoinColumn(name = "node_id")
-   // @OneToMany(targetEntity=TagEntity.class, mappedBy="NODES!",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    //protected List<Tag> tag;
-  /*  @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "nodeEntity", orphanRemoval = true)
-    private List<TagEntity> tags = new ArrayList<>();*/
-   //@OneToMany(targetEntity=TagEntity.class, mappedBy="college", fetch=FetchType.EAGER)
     public NodeEntity()
     {}
     public NodeEntity(Long id, Double lat, Double lon, String user, BigInteger uid, BigInteger version, BigInteger changeset, Timestamp timestamp) {
@@ -77,13 +62,8 @@ public class NodeEntity {
             TagEntity tagEntity = new TagEntity(element.getK(), element.getV(), this);
             tags.add(tagEntity);
         }
-        //List<TagEntity> tagEntityList = tags.stream().map(TagEntity::of).collect(Collectors.toList());
     }
 
-    /*  public void addToTags(TagEntity tag) {
-          tag.setNodeEntity(this);
-          this.tags.add(tag);
-      }*/
     public Long getId() {
       return id;
   }
@@ -148,16 +128,5 @@ public class NodeEntity {
     public void setTimestamp(Timestamp value) {
         this.timestamp = value;
     }
-  /*  public List<TagEntity> getTags() {
-        return tags;
-    }
-    public void addTag(TagEntity tagEntity) {
-        if (tags.contains(tagEntity)) {
-            return;
-        }
-        tags.add(tagEntity);
-        tagEntity.setNodeEntity(this);
-    }*/
-
 }
 
